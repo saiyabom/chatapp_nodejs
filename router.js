@@ -11,6 +11,6 @@ export default function(app) {
   app.get('/', requireAuth, function(req, res) {
     res.send({ message: 'Super secret code is ABC123' });
   });
-  app.post('/signin', requireSignin, signin);
+  app.post('/signin', signin);
   app.post('/signup', signup);
 }

@@ -2,14 +2,36 @@ import jwt from 'jwt-simple'
 
 import User from '../models/user'
 import config from '../config'
+import { isMaster } from 'cluster';
 
 function tokenForUser(user) {
     const timestamp = new Date().getTime();
-    return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+    console.log(user)
+    return jwt.encode({ sub: user._id, iat: timestamp }, config.secret);
 }
 export const signin = function(req, res, next) {
- 
-    res.send({ token: tokenForUser(req.user) });
+  const email = req.body.email;
+  const password = req.body.password;
+  console.log(email)
+  console.log(password)
+
+  if (!email || !password) {
+    return res.status(422).send({ error: 'You must provide email and password'});
+  }
+  User.findOne({ email: email }, (err, user)=>{
+    if (err) { return next(err); }
+    console.log('Password:'+password)
+    user.comparePassword(password,function(err,isMatch){
+      console.log("isMatch:"+ isMaster)
+      if(!isMatch) return res.status(422).send({ error: 'Password Wrong'});
+      res.send({ token: tokenForUser(user) });
+      
+    })
+    
+  });
+
+
+    
 }
 
 export const signup = function(req, res, next) {

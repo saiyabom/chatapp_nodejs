@@ -1,9 +1,18 @@
 
 import {generateMessage, isRealString,generateMessageTo} from './utils'
+import socketioJwt from 'socketio-jwt'
+import config from '../config'
 
 export default function(io){
+    io.use(socketioJwt.authorize({
+        secret: config.secret,
+        handshake: true
+      }));
+      
     io.on('connection', (socket) => {
         console.log('New user connected');
+        //console.log(socket.handshake)
+        console.log(socket.decoded_token, 'connected');
         
         socket.broadcast.emit('newMessage', generateMessage('Admin','New User join'))
     

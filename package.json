@@ -21,13 +21,14 @@
     "express-session": "^1.15.6",
     "jwt-simple": "^0.5.0",
     "moment": "^2.19.3",
-    "mongoose": "^4.4.7",
+    "mongoose": "^4.13.6",
     "morgan": "^1.7.0",
     "nodemon": "^1.9.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "socketio-jwt": "^4.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

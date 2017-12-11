@@ -7,11 +7,14 @@ import { isMaster } from 'cluster';
 function tokenForUser(user) {
     const timestamp = new Date().getTime();
     console.log(user)
-    return jwt.encode({ sub: user._id, iat: timestamp }, config.secret);
+    const token = jwt.encode({ sub: user._id, email:user.email,iat: timestamp }, config.secret);
+    console.log('token:',token)
+    return token
 }
 export const signin = function(req, res, next) {
   const email = req.body.email;
   const password = req.body.password;
+  console.log('singin function')
   console.log(email)
   console.log(password)
 
@@ -19,9 +22,13 @@ export const signin = function(req, res, next) {
     return res.status(422).send({ error: 'You must provide email and password'});
   }
   User.findOne({ email: email }, (err, user)=>{
-    if (err) { return next(err); }
+    if (err || !user) { 
+      console.log(user)
+      return next(err); }
+    console.log(user)
     console.log('Password:'+password)
     user.comparePassword(password,function(err,isMatch){
+      if(err) console.log(err)
       console.log("isMatch:"+ isMaster)
       if(!isMatch) return res.status(422).send({ error: 'Password Wrong'});
       res.send({ token: tokenForUser(user) });
@@ -37,10 +44,12 @@ export const signin = function(req, res, next) {
 export const signup = function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
+    console.log('signup function')
     console.log(email)
     console.log(password)
   
     if (!email || !password) {
+      console.log('You must provide email and password')
       return res.status(422).send({ error: 'You must provide email and password'});
     }
   
@@ -50,6 +59,7 @@ export const signup = function(req, res, next) {
   
       // If a user with email does exist, return an error
       if (existingUser) {
+        console.log('Email is in use')
         return res.status(422).send({ error: 'Email is in use' });
       }
   

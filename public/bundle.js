@@ -71025,7 +71025,7 @@ var createValues = function createValues(_ref) {
 
 
 
-var ROOT_URL = 'http://localhost:80';
+var ROOT_URL = 'https://localhost';
 
 function signinUser(_ref) {
   var email = _ref.email,
@@ -72000,7 +72000,7 @@ module.exports = function spread(callback) {
 
 
 
-var ROOT_URL = 'http://localhost:80';
+var ROOT_URL = 'https://localhost';
 
 function setupSocket() {
   return function (dispatch) {

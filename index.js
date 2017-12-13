@@ -8,6 +8,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 
 import socketApp from './services/socketapp'
+import config from './config'
 
 //Session store feature
 import session from 'express-session'
@@ -29,6 +30,7 @@ import cors from 'cors'
 mongoose.connect('mongodb://root:1qaz2wsx@ds129066.mlab.com:29066/chatbox');
 
 // App Setup
+app.use(express.static('public'))
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
@@ -36,7 +38,7 @@ app.use(cookieParser())
 
 //Session
 app.use(session({
-    secret:'1qaz2wsx',
+    secret:config.secret,
     saveUninitialized:true,
     resave:true,
     store: new MongoStore({

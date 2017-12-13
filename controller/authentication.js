@@ -30,7 +30,7 @@ export const signin = function(req, res, next) {
     user.comparePassword(password,function(err,isMatch){
       if(err) console.log(err)
       console.log("isMatch:"+ isMaster)
-      if(!isMatch) return res.status(422).send({ error: 'Password Wrong'});
+      if(isMatch) return res.status(422).send({ error: 'Password Wrong'});
       res.send({ token: tokenForUser(user) });
       
     })

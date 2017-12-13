@@ -71025,7 +71025,7 @@ var createValues = function createValues(_ref) {
 
 
 
-var ROOT_URL = 'https://localhost';
+var ROOT_URL = 'https://fathomless-everglades-76727.herokuapp.com';
 
 function signinUser(_ref) {
   var email = _ref.email,
@@ -72000,7 +72000,7 @@ module.exports = function spread(callback) {
 
 
 
-var ROOT_URL = 'https://localhost';
+var ROOT_URL = 'https://fathomless-everglades-76727.herokuapp.com';
 
 function setupSocket() {
   return function (dispatch) {

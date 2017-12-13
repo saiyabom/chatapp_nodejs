@@ -71025,7 +71025,7 @@ var createValues = function createValues(_ref) {
 
 
 
-var ROOT_URL = 'http://localhost:3090';
+var ROOT_URL = 'http://localhost:80';
 
 function signinUser(_ref) {
   var email = _ref.email,
@@ -72000,12 +72000,12 @@ module.exports = function spread(callback) {
 
 
 
-var ROOT_URL = 'http://localhost:3090';
+var ROOT_URL = 'http://localhost:80';
 
 function setupSocket() {
   return function (dispatch) {
     console.log('======actions=======');
-    var socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()('http://localhost:3090', {
+    var socket = __WEBPACK_IMPORTED_MODULE_3_socket_io_client___default()(ROOT_URL, {
       query: 'token=' + localStorage.getItem('token')
     });
     socket.on('connect', function () {
